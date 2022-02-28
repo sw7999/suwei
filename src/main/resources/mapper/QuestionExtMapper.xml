@@ -20,4 +20,10 @@
     VIEW_COUNT = VIEW_COUNT + #{viewCount,jdbcType=INTEGER}
     where id = #{id}
   </update>
+  <update id="incCommentCount" parameterType="life.suwei.community2.model.Question">
+    update QUESTION
+    set
+    COMMIT_COUNT = COMMIT_COUNT + #{commentCount,jdbcType=INTEGER}
+    where id = #{id}
+  </update>
 </mapper>
