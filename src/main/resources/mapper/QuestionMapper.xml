@@ -435,6 +435,12 @@
       STICKY = #{sticky,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+  <update id="incView" parameterType="life.suwei.community2.model.Question">
+    update QUESTION
+    set
+    VIEW_COUNT = VIEW_COUNT + #{viewCount,jdbcType=INTEGER}
+    where id = #{id}
+  </update>
   <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="life.suwei.community2.model.QuestionExample" resultMap="ResultMapWithBLOBs">
     <!--
       WARNING - @mbg.generated

@@ -1,10 +1,5 @@
 package life.suwei.community2.model;
 
-
-/**
- * @author shkstart
- * @date 2022/2/25-22:15
- */
 public class User {
     /**
      *

@@ -2,6 +2,9 @@ package life.suwei.community2.service;
 
 import life.suwei.community2.dto.PaginationDTO;
 import life.suwei.community2.dto.QuestionDTO;
+import life.suwei.community2.exception.CustomizeErrorCode;
+import life.suwei.community2.exception.CustomizeException;
+import life.suwei.community2.mapper.QuestionExtMapper;
 import life.suwei.community2.mapper.QuestionMapper;
 import life.suwei.community2.mapper.UserMapper;
 import life.suwei.community2.model.Question;
@@ -24,6 +27,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -115,6 +121,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -139,9 +148,20 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion,example);
+            if (updated != 1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
 
         }
 
+    }
+
+    public void incView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+
+        questionExtMapper.incView(question);
     }
 }

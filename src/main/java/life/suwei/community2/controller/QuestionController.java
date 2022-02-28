@@ -1,6 +1,8 @@
 package life.suwei.community2.controller;
 
 import life.suwei.community2.dto.QuestionDTO;
+import life.suwei.community2.exception.CustomizeErrorCode;
+import life.suwei.community2.exception.CustomizeException;
 import life.suwei.community2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,11 @@ public class QuestionController {
         try {
             questionId = Long.parseLong(id);
         } catch (NumberFormatException e) {
+            throw new CustomizeException(CustomizeErrorCode.INVALID_INPUT);
         }
         QuestionDTO questionDTO = questionService.getById(questionId);
+        //累加访问次数
+        questionService.incView(questionId);
         model.addAttribute("question",questionDTO);
         return "question";
 

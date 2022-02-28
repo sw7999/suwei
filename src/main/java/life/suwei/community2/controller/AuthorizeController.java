@@ -1,6 +1,5 @@
 package life.suwei.community2.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import life.suwei.community2.dto.AccessTokenDTO;
 import life.suwei.community2.dto.GithubUser;
 import life.suwei.community2.model.User;
