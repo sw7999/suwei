@@ -1,7 +1,6 @@
 package life.suwei.community2.controller;
 
 import life.suwei.community2.dto.QuestionDTO;
-import life.suwei.community2.mapper.QuestionMapper;
 import life.suwei.community2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +19,14 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/question/{id}")
-    public String question(@PathVariable(name = "id")Integer id,
+    public String question(@PathVariable(name = "id")String id,
                            Model model){
-
-        QuestionDTO questionDTO = questionService.getById(id);
+        Long questionId = null;
+        try {
+            questionId = Long.parseLong(id);
+        } catch (NumberFormatException e) {
+        }
+        QuestionDTO questionDTO = questionService.getById(questionId);
         model.addAttribute("question",questionDTO);
         return "question";
 
