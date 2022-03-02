@@ -24,6 +24,7 @@ public class TagCache {
         TagDTO framework = new TagDTO();
         framework.setCategoryName("云顶之奕");
         framework.setTags(Arrays.asList("大神阵容","新人入队","亚洲杯"));
+        tagDTOS.add(framework);
         return tagDTOS;
     }
 

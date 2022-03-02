@@ -1,5 +1,6 @@
 package life.suwei.community2.mapper;
 
+import life.suwei.community2.dto.QuestionQueryDTO;
 import life.suwei.community2.model.Question;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,8 @@ public interface QuestionExtMapper {
     int incCommentCount(Question record);
     List<Question> selectRelated(Question question);
 
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectSticky();
 }
