@@ -4,12 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title th:text="${question.title}"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/community2.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/community2.css"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
+
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/moment.js" type="application/javascript"></script>
     <script src="/js/community2.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" type="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js.min.js" type="application/javascript"></script>
+
 </head>
 <body>
 <div th:insert="~{navigation.html :: nav}"></div>
@@ -28,7 +34,14 @@
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!--内容-->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view" >
+                    <textarea style="display: none;"   th:text="${question.description}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        editormd.markdownToHTML("question-view", {});
+                    });
+                </script>
                 <!--标签-->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -67,7 +80,6 @@
                                 <span class="glyphicon glyphicon-thumbs-up icon"></span>
                                 <span th:data-id="${comment.id}" onclick="collapseComments(this)" class="comment-icon">
                                 <span class="glyphicon glyphicon-comment " th:text="${comment.commentCount}"></span>
-                                <span th:text="${comment.commentCount}"></span>
                             </span>
                                 <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}" ></span>
                             </div>
@@ -131,7 +143,7 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>欢迎加入qq交流群</h4>
-                <img class="img-thumbnail question-wechat" src="/image/wechat.png">
+                <img class="img-thumbnail question-wechat" src="/images/wechat.png">
             </div>
             <!--相关问题-->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
