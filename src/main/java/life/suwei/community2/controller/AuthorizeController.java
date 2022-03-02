@@ -5,6 +5,7 @@ import life.suwei.community2.dto.GithubUser;
 import life.suwei.community2.model.User;
 import life.suwei.community2.provider.GithubProvider;
 import life.suwei.community2.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import java.util.UUID;
  * @date 2022/2/24-21:25
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired
@@ -61,6 +63,7 @@ public class AuthorizeController {
             return "redirect:/";
 
         }else {
+            log.error("callback get github error,{}",githubUser);
             //登陆失败，重新登陆
             return "redirect:/";
         }
